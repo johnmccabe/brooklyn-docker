@@ -1,18 +1,18 @@
-FROM gliderlabs/alpine:3.1
+FROM gliderlabs/alpine:3.3
 
-RUN apk-install openjdk7-jre-base ; \
+RUN apk-install openjdk8-jre-base ; \
     apk-install bash ; \
-    apk-install wget
+    apk-install curl
 
-ENV brooklyndist brooklyn-dist-0.9.0-20151130.1634
+ENV VERSION 0.9.0
 ENV brooklyn.webconsole.security.users docker
 ENV brooklyn.webconsole.security.user.docker.password docker
 
-RUN wget http://ccweb.cloudsoftcorp.com/maven/libs-release-local/org/apache/brooklyn/brooklyn-dist/0.9.0-20151130.1634/${brooklyndist}-dist.tar.gz -O /${brooklyndist}.tar.gz ; \
-    tar zxf ${brooklyndist}.tar.gz ; \
-    rm -f ${brooklyndist}.tar.gz
+RUN curl -o apache-brooklyn.tar.gz -L "https://www.apache.org/dyn/closer.lua?action=download&filename=brooklyn/apache-brooklyn-${VERSION}/apache-brooklyn-${VERSION}-bin.tar.gz"; \
+    tar zxf apache-brooklyn.tar.gz ; \
+    rm -f apache-brooklyn.tar.gz
 
-WORKDIR /${brooklyndist}
+WORKDIR /apache-brooklyn-${VERSION}-bin
 
 VOLUME [ "/root/.brooklyn", "/root/.ssh" , "/root/.brooklyn-persistance" ]
 
