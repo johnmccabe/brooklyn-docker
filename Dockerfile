@@ -4,7 +4,7 @@ RUN apk-install openjdk8-jre-base ; \
     apk-install bash ; \
     apk-install curl
 
-ENV VERSION 0.9.0
+ENV VERSION 0.11.0
 ENV brooklyn.webconsole.security.users docker
 ENV brooklyn.webconsole.security.user.docker.password docker
 
